@@ -33,6 +33,7 @@
     TUIGroupInfoController *info = [[TUIGroupInfoController alloc] init];
     info.groupId = _groupId;
     info.delegate = self;
+    info.view.frame = self.view.bounds;
     [self addChildViewController:info];
     [self.view addSubview:info.view];
     self.title = @"详细资料";

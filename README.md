@@ -78,6 +78,7 @@
 
 ## 标准版与精简版差异对照表
 精简版目前支持 Android 和 iOS 两个平台，后续会逐步增加对 Windows 和 Mac 平台的支持。下面以 Android 和 iOS 平台下的 SDK 为主，对比一下标准版和精简版的差异。
+
 ### SDK 体积大小对比
 <table>
   <tr>
@@ -265,64 +266,64 @@
   </tr>
 </table>
 
+### 集成方式对比
+#### jcenter 集成 (Android 平台)
+如果使用标准版 SDK，请在 gradle 里添加如下依赖
+```
+dependencies {
+  api 'com.tencent.imsdk:imsdk:版本号'
+}
+```
+如果使用精简版 SDK，请在 gradle 里添加如下依赖
+```
+dependencies {
+  api 'com.tencent.imsdk:imsdk-smart:版本号'
+}
+```
 
-## 标准版 5.0.6 @2020.09.18
+#### cocoaPods 集成 (iOS 平台)
+如果使用标准版 SDK，请您按照如下方式设置 Podfile 文件
+
+```
+platform :ios, '8.0'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'App' do
+pod 'TXIMSDK_iOS'
+end
+```
+
+如果使用精简版 SDK，请您按照如下方式设置 Podfile 文件
+```
+platform :ios, '8.0'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'App' do
+pod 'TXIMSDK_Smart_iOS'
+end
+```
+
+更多集成方式请参考 <a href="https://cloud.tencent.com/document/product/269/32673">集成 SDK</a>
+
+## 标准版 5.0.10 @2020.10.15
 
 ### SDK
 
-**通用变更点**
+**iOS/Android平台**
 
-- 增加群@功能
-- iOS 和 Android 新增接口 deleteMessages，会同时删除本地及漫游消息
-- 接口 deleteConversation 在删除会话的同时会删除本地及漫游消息
-- API2.0 接口补充了用户资料、好友资料、群成员资料的自定义字段的设置和获取接口
-- 优化图片上传兼容性问题
-- 修复设置群消息接收选项再立即获取该值，该值未改变的问题
-- 修复 C2C 本地会话删除后，C2C 的系统通知会更新会话，但是消息 elem 为空的问题
-- 修复含中文的 userID 导致图片上传不成功的问题
-- 修复带有特殊字符的账号设置用户 nickname 成功后，进群发消息，群内其他成员接收到新消息回调中 nickname 为空的问题
-- 修复已知崩溃问题
-
-**iOS 平台**
-
-- 修复移除消息监听 crash 的问题
-- 优化会话对象账号删除导致会话获取异常的问题
-- 优化初始化卡顿问题
-
-**Android 平台**
-
-- 优化信令发送超时失败时的处理
-- 修复信令取消接口的自定义数据无效的问题
-- 修复群属性删除接口 keys 传 null 无法删除所有属性的问题
-- 修复信令群呼叫接受或者拒绝后还能继续接受或拒绝的问题
-- 修复 API2.0 接口多 Element 解析问题
-
-**Windows 平台**
-
-- 修复已知内存泄漏问题
-- 优化日志上传问题
-- 修复 PC 上某些机型相同账号同时登录不会互踢的问题
-- 修复 PC 收到消息乱序的问题
+- 优化信令接口，支持设置在线消息 onlineUserOnly 和离线推送信息 offlinePushInfo 参数
+- 优化获取单个会话接口的异步回调
+- 会话增加获取群类型接口，方便会话列表展示过滤
 
 ### TUIKit & Demo
 
-**iOS**
+**iOS/Android**
+- 新增群直播功能，连麦、送礼、美颜、变声等功能一应俱全
+- 新增直播大厅，支持连麦、PK、点赞、送礼、美颜、弹幕、好友关注等
+- 优化语音视频信令识别问题
 
-- 增加群@的功能
-- 增加新表情包
-- 更新 SDWebImage 依赖库
-- 优化有人申请加群 UI 展示的问题
-- 优化音视频通话文本展示
 
-**Android**
-
-- 增加群@的功能
-- 修复建群选择联系人时可能展示的与实际选择不一致的问题
-- 修复自定义消息可能显示混乱的问题
-- 修复 AVCallManager、TRTCAVCallImpl 偶现 Crash 的问题
-- 增加新表情包
-
-## 精简版 5.0.105 @2020.09.18
+## 精简版 5.0.106 @2020.09.21
 
 ### SDK
 
